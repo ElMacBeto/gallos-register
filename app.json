@@ -3,9 +3,15 @@
     "name": "gallos-manager",
     "slug": "gallos-manager",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icons/logo-app.png",
     "assetBundlePatterns": [
-      "**/*"
-    ]
+      "assets/*"
+    ],
+    "android": {
+      "package": "com.GallosManager.app"
+    }
   },
-  "name": "gallos-manager"
+  "name": "GallosManager"
+  
 }

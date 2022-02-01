@@ -4,34 +4,25 @@ import * as colors from '../constants/color';
 const styles = StyleSheet.create({
     background:{
         flex:1, 
-        backgroundColor: colors.background1, 
-        alignItems:'center', 
-        borderTopEndRadius:100, 
-        borderBottomStartRadius:100
-    },
-    background2:{
         width:'100%',
-        height:'100%',
-        flex:1, 
-        position:'absolute',
         backgroundColor: colors.background1, 
         alignItems:'center', 
-        borderTopStartRadius:100, 
-        borderBottomEndRadius:100
+        justifyContent:'center',
+        borderTopEndRadius:100, 
+        borderBottomStartRadius:0
     },
     container: {
-        flex:1,
+        marginVertical:15,
         justifyContent: 'center',
         alignItems:'center',
-        height:'100%',
-        width:'100%',
-        paddingRight:15,
-        paddingLeft:15,
+        width:'80%',
     },
     containerRow: {
         flexDirection:'row',
+        width:'100%',
+        justifyContent:'center',
+        alignItems:'center'
     },
-
     title:{
         color:'white',
         fontSize:20,
@@ -41,26 +32,28 @@ const styles = StyleSheet.create({
     },
     title2:{
         color:'white',
-        fontSize:14,
+        fontSize:18,
         margin:10,
         textAlign:'center',
     },
     title3:{
         color:'black',
-        fontSize:14,
+        fontSize:20,
         margin:10,
         textAlign:'center',
     },
+    
     formField:{
         width:'90%',
         borderWidth:2,
         borderColor:colors.white,
         borderRadius:5,
-        fontSize:15,
+        fontSize:18,
         color:'white',
         padding:5,
         margin:5,
-    },
+    }, 
+    // register and edit screens styles
     button:{
         justifyContent:'center',
         alignItems:'center',
@@ -79,6 +72,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#fff',
         padding:8
     },
+    //summary info card style
     infoCard:{
         width:'90%', 
         backgroundColor:colors.white, 
@@ -87,6 +81,16 @@ const styles = StyleSheet.create({
         justifyContent:'center', 
         marginTop:80, 
         marginBottom:10
+    },
+    //register screen
+    submitBtn:{
+        width:150, 
+        borderBottomWidth:1, 
+        borderColor:'black', 
+        backgroundColor:colors.submit, 
+        borderRadius:10, 
+        marginTop:20, 
+        marginBottom:20,
     }
   });
 

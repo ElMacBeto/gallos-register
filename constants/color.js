@@ -20,3 +20,9 @@ export const placeholder = "#CCCFCF";
 //backgrounds
 export const background1 = "#1F287A";
 export const background2 = "#7A0000";
+//submit buttom
+export const submit = "green";
+//info card
+export const BGInfoCard = "#3BABED";
+export const infoCardTitle = "#0F0833";
+export const infoCardHeader = "#585D87";

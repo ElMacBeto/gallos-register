@@ -17,4 +17,5 @@ export const icons ={
         right: require('../assets/images/marks/derecha.png'),
         bothNoise: require('../assets/images/marks/ambasNariz.png'),
         noneNoise: require('../assets/images/marks/sinNariz.png'),
+        edit: require('../assets/images/icons/edit.png'),
        }

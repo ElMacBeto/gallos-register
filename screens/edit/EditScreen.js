@@ -3,82 +3,58 @@ import styles from '../../styles/globalStyles';
 import { form } from '../../constants/form';
 import * as colors from '../../constants/color';
 import ButtonGroup from '../../components/ButtonGroup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { openDatabase } from "react-native-sqlite-storage";
 
 const db = openDatabase({
   name: "db",
 });
 
-export default function SettingsTapScreen(props) {
-  
-  useEffect(()=>{
-    props.navigation.addListener('focus', () => {
-      setDataRegister({line:'', 
-      year:'', 
-      gender:'macho', 
-      plaque:'', 
-      ring:'',
-      leftLeg:'afuera',
-      rightLeg:'afuera',
-      noise:'izquierda',
-      });
-    })
-
-  },[])
-
+export default function EditScreen(props) {
+    
+  const gallo =props.route.params.gallo;
+  const value = props.route.params.value;
+  const field = props.route.params.field;  
+  //console.log(gallo)    
   const [dataRegister, setDataRegister] = useState({
-        line:'', 
-        year:'', 
-        gender:'macho', 
-        plaque:'', 
-        ring:'',
-        leftLeg:'afuera',
-        rightLeg:'afuera',
-        noise:'izquierda',
+      line:gallo.line, 
+      year:gallo.year.toString(), 
+      gender:gallo.gender, 
+      plaque:gallo.plaque.toString(), 
+      ring:gallo.ring.toString(),
+      leftLeg:gallo.leftLeg,
+      rightLeg:gallo.rightLeg,
+      noise:gallo.noise,
   });
   const dataRegisterHandler = (field, data) => {
         setDataRegister({...dataRegister, [field]: data});
   };
-  const addNewRosster= ()=>{
-      if(!(dataRegister.line =='' || dataRegister.year =='' || 
-           dataRegister.plaque =='' || dataRegister.ring =='')){
-        
-        addRooster(dataRegister);
-        Alert.alert('guardado exisosamente');
-        setDataRegister({line:'', 
-          year:'', 
-          gender:'macho', 
-          plaque:'', 
-          ring:'',
-          leftLeg:'afuera',
-          rightLeg:'afuera',
-          noise:'izquierda',
-        });
-      props.navigation.navigate('Home');
-      }else{
-        Alert.alert('llene todo los campos')
-      }
-      
-      
+  const SaveChange= ()=>{
+    if(!(dataRegister.line =='' || dataRegister.year =='' || 
+    dataRegister.plaque =='' || dataRegister.ring =='')){
+      UpdateRooster();
+      Alert.alert('actualizacion exitosa');
+      props.navigation.navigate('Consult', {value, field});
+    }else{
+      Alert.alert('llene todo los campos')
+    }
   };
   //////////////////////////////////////////////////////////////////////////////////////
-  const addRooster = () => {
-    
+  const UpdateRooster = () => { 
     db.transaction(txn => {
       txn.executeSql(
-        `INSERT INTO gallos (line, year, gender, plaque, ring, leftLeg, rightLeg, noise) VALUES (?,?,?,?,?,?,?,?)`,
+        `UPDATE gallos SET line= ?, year= ?, gender= ?, plaque= ?, ring= ?, leftLeg= ?, rightLeg= ?, noise= ? WHERE id= ${gallo.id}`,
         [ dataRegister.line, 
-          dataRegister.year, 
-          dataRegister.gender, 
-          dataRegister.plaque, 
-          dataRegister.ring,
-          dataRegister.leftLeg,
-          dataRegister.rightLeg,
-          dataRegister.noise
-        ],
+            dataRegister.year, 
+            dataRegister.gender, 
+            dataRegister.plaque, 
+            dataRegister.ring,
+            dataRegister.leftLeg,
+            dataRegister.rightLeg,
+            dataRegister.noise
+          ],
         (sqlTxn, res) => {
-          console.log(`${dataRegister.line} category added successfully`);
+          console.log(`${dataRegister.line} actualizado`);
         },
         error => {
           console.log("error on adding rooster " + error.message);
@@ -86,7 +62,7 @@ export default function SettingsTapScreen(props) {
       );
     });
   };
-
+////////////////////////////////////////////////////////////////////////////////////////
     return (
       <SafeAreaView style={styles.background}>
         <ScrollView style={{width:'100%'}}>
@@ -107,12 +83,12 @@ export default function SettingsTapScreen(props) {
               style={styles.formField}
             />
             {/**gender select */}
-            <View style={styles.container}>
+            <View style={styles.container}> 
               <ButtonGroup 
-                  data={form.gender.data} 
-                  onPress={dataRegisterHandler} 
-                  field={form.gender.field}
-                  edit={dataRegister.gender}
+                data={form.gender.data} 
+                onPress={dataRegisterHandler} 
+                field={form.gender.field} 
+                edit={gallo.gender}
                 />
             </View>
             <TextInput
@@ -133,40 +109,41 @@ export default function SettingsTapScreen(props) {
             />
             {/*left leg marks*/}
             <View style={[styles.container,{marginBottom:0}]}>
-              <ButtonGroup 
-                  data={form.leftLeg.data} 
-                  onPress={dataRegisterHandler} 
-                  field={form.leftLeg.field}
-                  edit={dataRegister.leftLeg}
+                <ButtonGroup 
+                    data={form.leftLeg.data} 
+                    onPress={dataRegisterHandler} 
+                    field={form.leftLeg.field}
+                    edit={gallo.leftLeg}
                 />
             </View>
             {/*right leg marks*/}
             <View style={[styles.container,{marginBottom:0}]}>
-              <ButtonGroup 
-                  data={form.rightLeg.data} 
-                  onPress={dataRegisterHandler} 
-                  field={form.rightLeg.field}
-                  edit={dataRegister.rightLeg}
-              />
+                <ButtonGroup 
+                    data={form.rightLeg.data} 
+                    onPress={dataRegisterHandler} 
+                    field={form.rightLeg.field}
+                    edit={gallo.rightLeg}
+                />
             </View>
             {/*noise  marks*/}
             <View style={styles.container}>
               <ButtonGroup 
-                data={form.noise.data} 
-                onPress={dataRegisterHandler} 
-                field={form.noise.field}
-                edit={dataRegister.noise}
-              />
+                    data={form.noise.data} 
+                    onPress={dataRegisterHandler} 
+                    field={form.noise.field}
+                    edit={gallo.noise}
+                />
             </View>
               <TouchableOpacity
                 style={styles.submitBtn}
-                onPress={addNewRosster}
+                onPress={SaveChange}
               >
-                <Text style={styles.title}>Add</Text>
+                <Text style={styles.title}>guardar</Text>
             </TouchableOpacity>
             </View>
       </ScrollView>
     </SafeAreaView>
     );
   }
+  
   

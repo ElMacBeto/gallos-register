@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ConsultScreen from './screens/consult/ConsultScreen';
 import TapNavigator from './screens/TapNavigator'
+import EditScreen from './screens/edit/EditScreen';
 
 const StackMainNavigator = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
       <StackMainNavigator.Navigator>
         <StackMainNavigator.Screen name="HomeTap" component={TapNavigator} options={navOptionHandler}  />
         <StackMainNavigator.Screen name="Consult" component={ConsultScreen}   /> 
+        <StackMainNavigator.Screen name="Edit" component={EditScreen}   /> 
       </StackMainNavigator.Navigator>
     </NavigationContainer>
   );
