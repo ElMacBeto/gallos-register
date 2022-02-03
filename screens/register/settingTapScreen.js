@@ -1,9 +1,13 @@
 import { View, TextInput, TouchableOpacity, Text, ScrollView, Alert,SafeAreaView} from 'react-native';
-import styles from '../../styles/globalStyles';
-import { form } from '../../constants/form';
-import * as colors from '../../constants/color';
-import ButtonGroup from '../../components/ButtonGroup';
 import { useEffect, useState } from 'react';
+// my assets
+import styles from '../../styles/globalStyles';
+import * as colors from '../../constants/color';
+// field data of form
+import { form } from '../../constants/form';
+// my component
+import ButtonGroup from '../../components/ButtonGroup';
+// database
 import { openDatabase } from "react-native-sqlite-storage";
 
 const db = openDatabase({
@@ -26,7 +30,7 @@ export default function SettingsTapScreen(props) {
     })
 
   },[])
-
+  // data to save 
   const [dataRegister, setDataRegister] = useState({
         line:'', 
         year:'', 
@@ -37,9 +41,11 @@ export default function SettingsTapScreen(props) {
         rightLeg:'afuera',
         noise:'izquierda',
   });
+  // change field values to save
   const dataRegisterHandler = (field, data) => {
         setDataRegister({...dataRegister, [field]: data});
   };
+  // validate and save rooster
   const addNewRosster= ()=>{
       if(!(dataRegister.line =='' || dataRegister.year =='' || 
            dataRegister.plaque =='' || dataRegister.ring =='')){
